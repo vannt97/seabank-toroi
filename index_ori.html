@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">    
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>TestUnity</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body class="dark" style="overflow: hidden;">
+    <div id = "TopElelment" style="position: fixed;z-index: 100;width: 100vw;height: 100vh;background-color: white;font-size: xx-large;display: flex;justify-content: center;text-align: center;align-items: center;">      
+      <div id="TopContainer" style="position: absolute;height: 100%;width: 56.25vh;background-image: url('src/loadingBG.png');background-size: contain;">        
+        <div id="ProgressText" style="position: relative; height: 10%; top:45%;left: auto;right: auto;">Loading </div>
+        <div style="position: relative; width: 40%; height: 1%;left: 30%; top:40%;background-color: gray;">
+          <div id="loadingBarBG" style="position: relative; width: 0%; height: 100%;background-color: blue;"></div>
+        </div>
+        <div id="Request" style="position: relative;height: 10%;top:50%;left: auto;right: auto;display: none;">
+          <img src="src/requestBtn.png" onclick="RequestHide()" style="position: relative;height: 100%;width: auto;" /> 
+        </div>        
+      </div>
+    </div>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" style="background: transparent !important;"></canvas>
+    </div>
+    <div id="loading-cover" style="display:none;">
+      <div id="unity-loading-bar">
+        <div id="unity-logo"><img src="logo.png"></div>
+        <div id="unity-progress-bar-empty" style="display: none;">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+        <div class="spinner"></div>
+      </div>
+    </div>
+    <div id="unity-fullscreen-button" style="display: none;"></div>
+    <script>      
+      function RequestHide() { document.getElementById("Request").style.display="none"; }
+      function RequestShow() { document.getElementById("Request").style.display="block"; }
+      
+      const hideFullScreenButton = "";
+      const buildUrl = "Build";
+      const loaderUrl = buildUrl + "/Builds.loader.js";
+      const config = {
+        dataUrl: buildUrl + "/Builds.data.unityweb",
+        frameworkUrl: buildUrl + "/Builds.framework.js.unityweb",
+        codeUrl: buildUrl + "/Builds.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "TestUnity",
+        productVersion: "1.0",
+      };
+
+      const container = document.querySelector("#unity-container");
+      const canvas = document.querySelector("#unity-canvas");
+      const loadingCover = document.querySelector("#loading-cover");
+      const progressBarEmpty = document.querySelector("#unity-progress-bar-empty");
+      const progressBarFull = document.querySelector("#unity-progress-bar-full");
+      const fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      const spinner = document.querySelector('.spinner');      
+
+      var UnityGame;//******************************************************************************
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        container.className = "unity-mobile";
+        config.devicePixelRatio = 2;
+      }
+      loadingCover.style.display = "";
+
+      const script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        config['webglContextAttributes'] = {"preserveDrawingBuffer": true};//***************************************************
+        createUnityInstance(canvas, config, (progress) => {
+          spinner.style.display = "none";
+          progressBarEmpty.style.display = "";
+          progressBarFull.style.width = `${100 * progress}%`;
+          SetProgressTopElement(progress);
+        }).then((unityInstance) => {
+          UnityGame = unityInstance;//******************************************************************************
+          loadingCover.style.display = "none";          
+        }).catch((message) => { alert(message); });
+      };
+      document.body.appendChild(script);
+      var unityLoadProgress = 0.0;
+      var totalProgress = 0.0;
+      var otherProgress = 0.0;
+      const progressContainer = document.getElementById("TopContainer");
+      const progressText = document.getElementById("ProgressText");
+      const progressbar = document.getElementById("loadingBarBG");
+      function UpdateProgress(){
+        totalProgress = unityLoadProgress + otherProgress;
+        progressText.innerHTML = "Loading: "+totalProgress+"%";
+        progressbar.style.width = totalProgress+"%";
+      }
+      function SetProgressTopElement(progress) {
+        console.log(progress);
+        unityLoadProgress = Math.round(progress * 90.0);
+        UpdateProgress();
+      }
+      function AddProgress(){
+        console.log(">>>>>>> addProgress");
+        otherProgress += 3.33;
+        UpdateProgress();
+      }
+    </script>
+
+    <!--************************************************************-->    
+    <script type="text/javascript">
+      const FunctionTrigger = {}
+      var unityHeight;
+      var unityWidth;
+    </script>
+    <script src="./src/videoRecorder.js"></script>
+    <script src="src/script.js" type="module">  
+    </script>
+
+    <script type="module">
+      import{sampleFunction} from "./src/script.js";
+      import{RequestPrediction} from "./src/script.js";
+      FunctionTrigger.sampleFunction = sampleFunction;
+      FunctionTrigger.RequestPrediction = RequestPrediction;
+    </script>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script><!--***************************************************-->
+
+    <script>
+      //_________________________________________________________________________________________scaleUnityCanvas
+      function scale() {
+          var factorCanvas = window.innerHeight / window.innerWidth;
+          if (factorCanvas < (16 / 9)) {
+            factorCanvas = window.innerHeight*(9/16);
+
+            canvas.style.width = factorCanvas + "px" ;
+            canvas.style.height = window.innerHeight + "px" ;
+            canvas.style.left = (window.innerWidth - factorCanvas)/2+"px";            
+            canvas.style.top = "0px";              
+
+            progressContainer.style.width = factorCanvas + "px" ;
+            progressContainer.style.height = window.innerHeight + "px" ;
+            progressContainer.style.left = (window.innerWidth - factorCanvas)/2+"px";            
+            progressContainer.style.top = "0px";
+            
+            progressText.style.fontSize = factorCanvas/20 + "px"
+          }
+          else {
+            factorCanvas = window.innerWidth*(16/9);
+
+            canvas.style.width = window.innerWidth + "px" ;
+            canvas.style.height = factorCanvas + "px" ;
+            canvas.style.left = "0px";
+            canvas.style.top = (window.innerHeight - factorCanvas)/2+"px";
+
+            progressContainer.style.width = window.innerWidth + "px" ;
+            progressContainer.style.height = factorCanvas + "px" ;
+            progressContainer.style.left = "0px";
+            progressContainer.style.top = (window.innerHeight - factorCanvas)/2+"px";
+
+            progressText.style.fontSize = window.innerWidth/20 + "px"
+          } 
+      }
+      scale();
+      window.addEventListener("resize", resizeWindow);
+      function resizeWindow() { scale(); }
+      //_________________________________________________________________________________________scaleUnityCanvas
+      //-----------------------------------------------------------------------------------------
+      function test() {
+        if (FunctionTrigger.sampleFunction != undefined) { FunctionTrigger.sampleFunction(); }
+        else {
+          console.log("FunctionTrigger.sampleFunction is not set");
+          setTimeout(test, 2500);
+        }
+      }
+      test();
+      
+      function RequestPrediction() {
+        if (FunctionTrigger.RequestPrediction != undefined) { FunctionTrigger.RequestPrediction(); }
+      }
+      //-----------------------------------------------------------------------------------------
+
+      //*******************************************************      
+      function CaptureScreen() {
+        console.log("Capture screen on index!!!");
+        const screenshotTarget = document.body;
+        html2canvas(screenshotTarget,{width:screenshotTarget.clientWidth, height: screenshotTarget.clientHeight}).then((canvas) => {
+          const base64image = canvas.toDataURL("image/png");
+          const a = document.createElement("a");
+          a.style.display = "none";
+          a.href = base64image;
+          a.download = "record.png";
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(base64image);
+          }, 100);
+        });
+      }
+      let isRecording = false;
+      function TriggerRecord(){
+        if (isRecording == false){ isRecording = true; }//console.log("Start recording on index!!!");
+        else{ isRecording = false; }//console.log("Stop recording on index...");
+      }
+      var videoElement;
+      function SetVideo(video){
+        videoElement = video;
+        console.log("Video tag is created: " + videoElement);
+        //InitSystem();
+      }
+      function OnGetMediaFail(errorDetail){
+        console.log(errorDetail);
+        if (typeof(window.inform) === "function") { inform(); }
+        else { document.getElementById("progressText").innerHTML = "Filter need Permission to use your camera. \nPlease, reset your permission." }
+      }
+      let isUnityLoaded = false;
+      function UnityLoaded(){
+        console.log("Unity is loaded! ready to stream data");
+        isUnityLoaded = true;
+      }
+      function LoadName(name){//only after UnityLoaded
+        if (UnityLoaded) { UnityGame.SendMessage('FilterManager', 'UpdateName', name); }        
+      }
+      function LoadImage(url){//only after UnityLoaded
+        if (UnityLoaded) { UnityGame.SendMessage('FilterManager', 'UpdateImage', url); }        
+      }
+      function GetVideoObject(blob) { console.log("get a blobURL: " + blob); }
+      function GetVideoData(data) { console.log("get Data: " + data); }
+    </script>        
+  </body>
+</html>

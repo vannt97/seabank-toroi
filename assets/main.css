@@ -1,0 +1,186 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  /* Montserrat */
+  font-family: "GMV DIN Pro";
+  font-weight: 400;
+}
+html {
+  font-size: 10px;
+}
+
+#home {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+}
+
+.bg-img {
+  width: 100%;
+  height: 100%;
+}
+.home-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.seabank-logo {
+  width: 15.5rem;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+.main-img {
+  width: 33.7rem;
+}
+
+.description-img {
+  width: 21.9rem;
+  margin-bottom: 3rem;
+}
+.experience-btn {
+  width: 100%;
+  max-width: 34.3rem;
+}
+
+#loading,
+#error,
+#share {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99;
+  display: none;
+}
+#unity-loading-bar {
+  display: block;
+  position: relative;
+  left: 0;
+  top: 0;
+  transform: none;
+  width: 30rem;
+  margin: auto;
+}
+#unity-progress-bar-empty {
+  width: 100%;
+  background: none;
+  border: 1px solid white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+#unity-progress-bar-full {
+  background: linear-gradient(90deg, #336fb4 0%, #1fb6de 100%);
+  margin: 0;
+}
+#startARDiv {
+  z-index: -9999;
+}
+.popup-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.outer {
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.inner {
+  position: relative;
+  z-index: 1;
+  width: 30.5rem;
+  height: 21.2rem;
+  background: white;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  justify-content: center;
+}
+.ctaDiv {
+  display: none;
+}
+
+#share {
+  /* display: block;
+  z-index: 9999; */
+  font-size: 1.4rem;
+  color: white;
+}
+.share-title {
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+}
+.bg-wrapper {
+  margin: auto;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.btns-wrapper {
+  width: 100%;
+  max-width: 34;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  max-width: 34.3rem;
+  margin: auto;
+  margin-top: 1.5rem;
+}
+.btns-wrapper img {
+  width: 100%;
+}
+
+#result-image,
+#result-video {
+  max-width: 22.1rem;
+  width: 100%;
+  height: 100%;
+}
+
+#share {
+  /* display: block;
+  z-index: 999; */
+}
+
+@media only screen and (min-width: 640px) {
+  .main-img {
+    width: 37.7rem;
+  }
+}
+@media only screen and (min-width: 990px) {
+  body::after {
+    position: absolute;
+    content: "Không hỗ trợ cho trình duyệt máy tính";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: white;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+  }
+}
