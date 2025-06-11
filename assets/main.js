@@ -3,6 +3,7 @@ const S3_URL =
   "https://s3.ap-southeast-1.amazonaws.com/octokit-assets/uploads/";
 let resultImageURL = null;
 let resultType = null;
+const isProduction = false;
 function findHomeElement() {
   let element = document.getElementById("home");
   return element;
@@ -131,13 +132,18 @@ function handleShareBtn() {
 
 function setResultMedia(url, type) {
   let element = findBgWrapperElement();
+  const renderContent = (content) => {
+    return `<div id="result-wrapper" style="aspect-ratio: ${window.innerWidth}/${window.innerHeight}">${content}</div>`;
+  };
   if (type == "video") {
-    element.innerHTML = `<video id="result-video" controls>
-  <source src="${url}" type="video/mp4">
-</video>`;
+    element.innerHTML = renderContent(`<video id="result-video" controls>
+    <source src="${url}" type="video/mp4">
+  </video>`);
   }
   if (type == "image") {
-    element.innerHTML = `<img id="result-image" src="${url}" alt="" />`;
+    element.innerHTML = renderContent(
+      `<img id="result-image" src="${url}" alt="" />`
+    );
   }
 }
 

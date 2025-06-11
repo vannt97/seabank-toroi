@@ -150,11 +150,21 @@ html {
   width: 100%;
 }
 
-#result-image,
-#result-video {
+#result-wrapper {
   max-width: 22.1rem;
   width: 100%;
   height: 100%;
+  position: relative;
+  margin:  auto;
+}
+#result-image,
+#result-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 #share {
