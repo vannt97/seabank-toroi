@@ -249,3 +249,59 @@ async function base64toFile(base64, filename, mimeType = "image/png") {
       return new File([buf], filename, { type: mimeType });
     });
 }
+
+function checkBrowser() {
+  var sBrowser,
+    sUsrAg = navigator.userAgent;
+  if (sUsrAg.indexOf("FB") > -1) {
+    sBrowser = "FB_Browser";
+  } else if (sUsrAg.indexOf("Zalo") > -1) {
+    sBrowser = "Zalo_Browser";
+  } else if (sUsrAg.indexOf("XiaoMi") > -1) {
+    sBrowser = "XiaoMi_Browser";
+  } else if (
+    sUsrAg.indexOf("BytedanceWebview") > -1 ||
+    sUsrAg.indexOf("WKWebView") > -1
+  ) {
+    sBrowser = "Tiktok_Browser";
+  } else {
+    sBrowser = "";
+  }
+  return sBrowser;
+}
+
+function handleRedirectToBrowser() {
+  let current_url = new window.URL(window.location.href);
+  let params = current_url.search;
+  window.location = `intent:${window.location.origin}/gallery.html${params}#Intent;end`;
+  window.location.href = `x-safari-${window.location.origin}/gallery.html${params}`;
+}
+
+function redirectToBrowserFromZalo() {
+  if (!isZaloBrowser()) return;
+  handleRedirectToBrowser();
+}
+
+function redirectToBrowserFromFB() {
+  if (!isFbBrowser()) return;
+  handleRedirectToBrowser();
+}
+
+function redirectToBrowserFromTiktok() {
+  if (!isTiktokBrowser()) return;
+  handleRedirectToBrowser();
+}
+
+function isTiktokBrowser() {
+  return checkBrowser() === "Tiktok_Browser";
+}
+
+function isZaloBrowser() {
+  return checkBrowser() === "Zalo_Browser";
+}
+
+function isFbBrowser() {
+  return checkBrowser() === "FB_Browser";
+}
+
+redirectToBrowserFromZalo();
