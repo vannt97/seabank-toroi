@@ -1,4 +1,6 @@
-const API_URL = "https://your-server.com/api/upload";
+const API_URL = "https://seabank-uat.marvy-uat.xyz/api/";
+const S3_URL =
+  "https://s3.ap-southeast-1.amazonaws.com/octokit-assets/uploads/";
 let resultImageURL = null;
 let resultType = null;
 function findHomeElement() {
@@ -139,50 +141,6 @@ function setResultMedia(url, type) {
   }
 }
 
-function uploadSingleMedia() {
-  const input = document.getElementById("mediaInput");
-  const file = input.files[0];
-
-  if (!file) {
-    alert("Vui lòng chọn ảnh hoặc video!");
-    return;
-  }
-
-  // Kiểm tra loại file: chỉ chấp nhận ảnh và video phổ biến
-  const validTypes = [
-    "image/jpeg",
-    "image/png",
-    "image/webp",
-    "video/mp4",
-    "video/webm",
-  ];
-
-  if (!validTypes.includes(file.type)) {
-    alert("Chỉ được chọn ảnh hoặc video (jpeg/png/webp/mp4/webm)");
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("file", file); // key 'file' sẽ được xử lý ở server
-
-  fetch("https://your-server.com/api/upload", {
-    method: "POST",
-    body: formData,
-  })
-    .then((res) => {
-      if (!res.ok) throw new Error("Upload thất bại");
-      return res.json();
-    })
-    .then((data) => {
-      console.log("Upload thành công:", data);
-      alert("Upload thành công!");
-    })
-    .catch((err) => {
-      console.error("Lỗi upload:", err);
-      alert("Đã xảy ra lỗi khi upload!");
-    });
-}
-
 function getURLFromBlob(blob) {
   return URL.createObjectURL(blob); // Tạo đường dẫn tạm
 }
@@ -223,4 +181,52 @@ function showBlockBtnsElement() {
             />
           </div>`;
   }
+}
+
+async function getPresignedUrl(file) {
+  const res = await fetch(
+    `${API_URL}get-presigned-url?file_type=${file.type}&expiration=60`,
+    {
+      method: "GET",
+    }
+  );
+
+  const presignedData = await res.json();
+  const { file_key, upload_url } = presignedData.data;
+  return { file_key, upload_url };
+}
+
+async function uploadSingleMedia(file, s3Url) {
+  console.log("file: ", file);
+  // const validTypes = [
+  //   "image/jpeg",
+  //   "image/png",
+  //   "image/webp",
+  //   "video/mp4",
+  //   "video/webm",
+  // ];
+
+  // if (!validTypes.includes(file.type)) {
+  //   alert("Chỉ được chọn ảnh hoặc video (jpeg/png/webp/mp4/webm)");
+  //   return;
+  // }
+
+  const uploadRes = await fetch(s3Url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": file.type,
+    },
+    body: file,
+  });
+
+  if (uploadRes.ok) {
+    console.log("Upload thành công!");
+  } else {
+    console.error("Upload thất bại!");
+  }
+}
+
+async function handleUploadPresignedS3(file) {
+  let { file_key, upload_url } = await getPresignedUrl(file);
+  await uploadSingleMedia(file, upload_url);
 }
