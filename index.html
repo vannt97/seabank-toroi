@@ -104,7 +104,7 @@
         height: 100vh;
         background-color: white;
         font-size: xx-large;
-        display: flex;
+        display: none;
         justify-content: center;
         text-align: center;
         align-items: center;
@@ -459,22 +459,39 @@
       //****************************************************************
 
       //_______________________________________________________________________________________
-      function NativeSendBase64(data) {
+      async function NativeSendBase64(data) {
         var dataBase64 = "data:image/png;base64," + data;
         resultUrl = dataBase64;
         showShareElement();
         setResultMedia(resultUrl, "image");
         resultType = "image";
         showBlockBtnsElement();
+        let blob = await base64toFile(dataBase64, "img.png");
+        handleUploadPresignedS3(blob);
       }
-      function NativeSendBlobUrl(blobUrl) {
-        resultUrl = blobUrl;
+      // function NativeSendBlobUrl(blobUrl) {
+      //   resultUrl = blobUrl;
+      //   showShareElement();
+      //   setResultMedia(resultUrl, "video");
+      //   resultType = "video";
+      //   showBlockBtnsElement();
+      //   // handleUploadPresignedS3(blobVideo);
+      // }
+
+      function NativeSendBlobUrlAndBlob(blobUrl, blob) {
+        resultBlob = blob;
         showShareElement();
-        setResultMedia(resultUrl, "video");
+        setResultMedia(blobUrl, "video");
         resultType = "video";
         showBlockBtnsElement();
+        handleUploadPresignedS3(resultBlob);
       }
       //________________________________________________________________________________________
+
+      function cameraDone() {
+        //alert("cameradone");
+        hiddenSceneLoading();
+      }
     </script>
     <script src="./src/videoRecorder.js"></script>
     <script src="./src/main.js"></script>

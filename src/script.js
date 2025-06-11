@@ -47,7 +47,8 @@ function waitForExisting() {
         enableWebcamButton = document.getElementById("TopElelment");
         video = window.videoElement;
         isVideoTabCreated = true;
-        hiddenSceneLoading();
+        //hiddenSceneLoading();        
+        //alert("hide loading");
       }
       console.log("Wait for video tab");
       waitForExisting();
