@@ -146,6 +146,13 @@ function setResultMedia(url, type) {
   }
 }
 
+function setClearMediaWrapper() {
+  let element = findBgWrapperElement();
+  if (element) {
+    element.innerHTML = "";
+  }
+}
+
 function getURLFromBlob(blob) {
   return URL.createObjectURL(blob); // Tạo đường dẫn tạm
 }
@@ -234,6 +241,12 @@ async function uploadSingleMedia(file, s3Url) {
 async function handleUploadPresignedS3(file) {
   let { file_key, upload_url } = await getPresignedUrl(file);
   await uploadSingleMedia(file, upload_url);
+
+  return upload_url;
+}
+
+function getUrlRaw(fullUrl) {
+  return fullUrl.split("?")[0];
 }
 
 async function base64toFile(base64, filename, mimeType = "image/png") {
@@ -273,8 +286,8 @@ function checkBrowser() {
 function handleRedirectToBrowser() {
   let current_url = new window.URL(window.location.href);
   let params = current_url.search;
-  window.location = `intent:${window.location.origin}/gallery.html${params}#Intent;end`;
-  window.location.href = `x-safari-${window.location.origin}/gallery.html${params}`;
+  window.location = `intent:${window.location.href}#Intent;end`;
+  window.location.href = `x-safari-${window.location.href}`;
 }
 
 function redirectToBrowserFromZalo() {

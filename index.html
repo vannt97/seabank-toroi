@@ -461,13 +461,14 @@
       //_______________________________________________________________________________________
       async function NativeSendBase64(data) {
         var dataBase64 = "data:image/png;base64," + data;
+        setClearMediaWrapper();
+        resultType = "image";
         resultUrl = dataBase64;
         showShareElement();
-        setResultMedia(resultUrl, "image");
-        resultType = "image";
         showBlockBtnsElement();
         let blob = await base64toFile(dataBase64, "img.png");
-        handleUploadPresignedS3(blob);
+        let fullUrl = await handleUploadPresignedS3(blob);
+        setResultMedia(getUrlRaw(fullUrl), "image");
       }
       // function NativeSendBlobUrl(blobUrl) {
       //   resultUrl = blobUrl;
@@ -478,13 +479,15 @@
       //   // handleUploadPresignedS3(blobVideo);
       // }
 
-      function NativeSendBlobUrlAndBlob(blobUrl, blob) {
+      async function NativeSendBlobUrlAndBlob(blobUrl, blob) {
+        setClearMediaWrapper();
         resultBlob = blob;
-        showShareElement();
-        setResultMedia(blobUrl, "video");
         resultType = "video";
+        resultUrl = blobUrl;
+        showShareElement();
         showBlockBtnsElement();
-        handleUploadPresignedS3(resultBlob);
+        let fullUrl = await handleUploadPresignedS3(resultBlob);
+        setResultMedia(getUrlRaw(fullUrl), "video");
       }
       //________________________________________________________________________________________
 
