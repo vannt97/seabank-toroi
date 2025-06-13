@@ -1,386 +1,400 @@
 <!DOCTYPE html>
 <html lang="en-us">
-    <head>
-        <meta charset="utf-8" />
 
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-        <title>AR Card</title>
-        <link rel="shortcut icon" href="TemplateData/favicon.ico" />
-        <link rel="stylesheet" href="TemplateData/style.css" />
-        <link rel="stylesheet" href="assets/font.css" />
-        <link rel="stylesheet" href="assets/main.css" />
+<head>
+    <meta charset="utf-8" />
 
-        <script>
-            window.alert = function () {
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <title>Trải nghiệm kỷ nguyên số với Thẻ SeABiz Ultra Cash</title>
+    <meta name="description"
+        content="Dấu ấn công nghệ tương tác ảo với Thẻ ghi nợ cho Khách hàng tổ chức của SeABank" />
+    <meta property="og:image" content="/assets/images/toroi.png" />
+    <link rel="shortcut icon" href="TemplateData/favicon.ico" />
+    <link rel="stylesheet" href="TemplateData/style.css" />
+    <link rel="stylesheet" href="assets/font.css" />
+    <link rel="stylesheet" href="assets/main.css" />
+
+    <script>
+        window.alert = function () {
+            window.location.reload();
+        };
+        window.addEventListener("pageshow", function (event) {
+            if (event.persisted) {
                 window.location.reload();
-            };
-            window.addEventListener("pageshow", function (event) {
-                if (event.persisted) {
-                    window.location.reload();
-                }
-            });
-        </script>
-    </head>
-    <body class="dark" style="overflow: hidden">
-        <div id="home">
-            <img class="bg-img" src="assets/images/bg.png" alt="" />
-            <div class="home-wrapper">
-                <img class="seabank-logo" src="assets/images/sea-bank-logo.png" alt="" />
-                <img class="main-img" src="assets/images/home-image-1.png" alt="" />
-                <img class="description-img" src="assets/images/home-image-2.png" alt="" />
-                <img onclick="StartAR()" class="experience-btn" src="assets/images/experience-btn.png" alt="" />
-            </div>
-        </div>
-        <div id="loading">
-            <img class="bg-img" src="assets/images/bg.png" alt="" />
-            <div class="home-wrapper">
-                <img class="seabank-logo" src="assets/images/sea-bank-logo.png" alt="" />
-                <img class="main-img" src="assets/images/home-image-1.png" alt="" />
-                <img class="description-img" src="assets/images/home-image-2.png" alt="" />
-                <div id="unity-loading-bar">
-                    <div id="unity-progress-bar-empty">
-                        <div id="unity-progress-bar-full"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="error">
-            <img class="bg-img" src="assets/images/bg.png" alt="" />
-            <div class="home-wrapper">
-                <img class="seabank-logo" src="assets/images/sea-bank-logo.png" alt="" />
-                <img class="main-img" src="assets/images/home-image-1.png" alt="" />
-                <img class="description-img" src="assets/images/home-image-2.png" alt="" />
-            </div>
-            <div class="popup-wrapper">
-                <div class="outer"></div>
-                <div class="inner">
-                    <p>Camera chưa được bật, vui lòng load lại trang và cho phép truy cập quyền camera</p>
-                </div>
-            </div>
-        </div>
-        <div id="share">
-            <img class="bg-img" src="assets/images/bg.png" alt="" />
-            <div class="home-wrapper">
-                <div class="share-title">
-                    <p>Chia sẻ ngay để có cơ hội</p>
-                    <p>nhận nhiều phần quà hấp dẫn!</p>
-                </div>
-                <div class="bg-wrapper"></div>
+            }
+        });
+    </script>
+</head>
 
-                <div class="block-btns-wrapper"></div>
-            </div>
+<body class="dark" style="overflow: hidden">
+    <div id="home">
+        <img class="bg-img" src="assets/images/bg.png" alt="" />
+        <div class="home-wrapper">
+            <img class="seabank-logo" src="assets/images/sea-bank-logo.png" alt="" />
+            <img class="main-img" src="assets/images/home-image-1.png" alt="" />
+            <img class="description-img" src="assets/images/home-image-2.png" alt="" />
+            <img onclick="StartAR()" class="experience-btn" src="assets/images/experience-btn.png" alt="" />
         </div>
-        <div id="TopElelment" style="position: fixed; z-index: -99; width: 100vw; height: 100vh; background-color: white; font-size: xx-large; display: none; justify-content: center; text-align: center; align-items: center">
-            <div id="TopContainer" style="position: absolute; height: 100%; width: 100%; background-image: url('src/loadingBG.png'); background-size: 100% 100%">
-                <div id="ProgressText" style="position: relative; height: 10%; top: 45%; left: auto; right: auto">Loading</div>
-                <div style="position: relative; width: 40%; height: 1%; left: 30%; top: 40%; background-color: gray">
-                    <div id="loadingBarBG" style="position: relative; width: 0%; height: 100%; background-color: blue"></div>
-                </div>
-                <div id="Request" style="position: relative; height: 10%; top: 50%; left: auto; right: auto; display: none">
-                    <img src="src/requestBtn.png" onclick="RequestHide()" style="position: relative; height: 100%; width: auto" />
-                </div>
-            </div>
-        </div>
-        <div id="unity-container" class="unity-desktop">
-            <canvas id="unity-canvas" style="background: transparent !important; position: relative"></canvas>
-            <div style="display: none">
-                <div id="filterUi" style="position: absolute">
-                    <img id="screenShotBtn" src="./StreamingAssets/Textures/screenShot.png" style="height: 100%; width: auto; position: absolute; left: 21.481%" onclick="TakeScreenShot()" />
-                    <img id="recordBtn" src="./StreamingAssets/Textures/recordStop.png" style="height: 100%; width: auto; position: absolute; left: 61.358%" onclick="ToogleRecord()" />
-                    <div id="recordTime" style="text-align: center; width: 61.358%; position: absolute; background-color: rgba(255, 255, 255, 0.5); color: red; display: none">00:00:00</div>
+    </div>
+    <div id="loading">
+        <img class="bg-img" src="assets/images/bg.png" alt="" />
+        <div class="home-wrapper">
+            <img class="seabank-logo" src="assets/images/sea-bank-logo.png" alt="" />
+            <img class="main-img" src="assets/images/home-image-1.png" alt="" />
+            <img class="description-img" src="assets/images/home-image-2.png" alt="" />
+            <div id="unity-loading-bar">
+                <div id="unity-progress-bar-empty">
+                    <div id="unity-progress-bar-full"></div>
                 </div>
             </div>
         </div>
-        <script>
-            function RequestHide() {
-                // document.getElementById("Request").style.display = "none";
-                UnityGame.SendMessage("FilterManager", "InitiateWebcamTexture");
-            }
-            function RequestShow() {
-                // document.getElementById("Request").style.display = "block";
-            }
-            //***************************************
-            var unityLoadProgress = 0.0;
-            var totalProgress = 0.0;
-            var otherProgress = 0.0;
-            const progressContainer = document.getElementById("TopContainer");
-            const progressText = document.getElementById("ProgressText");
-            const progressbar = document.getElementById("unity-progress-bar-full");
+    </div>
+    <div id="error">
+        <img class="bg-img" src="assets/images/bg.png" alt="" />
+        <div class="home-wrapper">
+            <img class="seabank-logo" src="assets/images/sea-bank-logo.png" alt="" />
+            <img class="main-img" src="assets/images/home-image-1.png" alt="" />
+            <img class="description-img" src="assets/images/home-image-2.png" alt="" />
+        </div>
+        <div class="popup-wrapper">
+            <div class="outer"></div>
+            <div class="inner">
+                <p>Camera chưa được bật, vui lòng load lại trang và cho phép truy cập quyền camera</p>
+            </div>
+        </div>
+    </div>
+    <div id="share">
+        <img class="bg-img" src="assets/images/bg.png" alt="" />
+        <div class="home-wrapper">
+            <div class="share-title">
+                <p>Chia sẻ ngay để có cơ hội</p>
+                <p>nhận nhiều phần quà hấp dẫn!</p>
+            </div>
+            <div class="bg-wrapper"></div>
 
-            function UpdateProgress() {
-                totalProgress = unityLoadProgress + otherProgress;
-                progressbar.style.width = totalProgress + "%";
-            }
-            function SetProgressTopElement(progress) {
-                unityLoadProgress = Math.round(progress * 90.0);
-                UpdateProgress();
-            }
-            function AddProgress() {
-                otherProgress += 2.0;
-                UpdateProgress();
-            }
-            function SampleFunctionSet() {
-                AddProgress();
-            }
-            function MediapipeStartTracking() {
-                AddProgress();
-            }
-            function CameraSelected() {
-                AddProgress();
-            }
-            function AssetLoaded() {
-                AddProgress();
-            }
-            //***************************************
+            <div class="block-btns-wrapper"></div>
+        </div>
+    </div>
+    <div id="TopElelment"
+        style="position: fixed; z-index: -99; width: 100vw; height: 100vh; background-color: white; font-size: xx-large; display: none; justify-content: center; text-align: center; align-items: center">
+        <div id="TopContainer"
+            style="position: absolute; height: 100%; width: 100%; background-image: url('src/loadingBG.png'); background-size: 100% 100%">
+            <div id="ProgressText" style="position: relative; height: 10%; top: 45%; left: auto; right: auto">Loading
+            </div>
+            <div style="position: relative; width: 40%; height: 1%; left: 30%; top: 40%; background-color: gray">
+                <div id="loadingBarBG" style="position: relative; width: 0%; height: 100%; background-color: blue">
+                </div>
+            </div>
+            <div id="Request" style="position: relative; height: 10%; top: 50%; left: auto; right: auto; display: none">
+                <img src="src/requestBtn.png" onclick="RequestHide()"
+                    style="position: relative; height: 100%; width: auto" />
+            </div>
+        </div>
+    </div>
+    <div id="unity-container" class="unity-desktop">
+        <canvas id="unity-canvas" style="background: transparent !important; position: relative"></canvas>
+        <div style="display: none">
+            <div id="filterUi" style="position: absolute">
+                <img id="screenShotBtn" src="./StreamingAssets/Textures/screenShot.png"
+                    style="height: 100%; width: auto; position: absolute; left: 21.481%" onclick="TakeScreenShot()" />
+                <img id="recordBtn" src="./StreamingAssets/Textures/recordStop.png"
+                    style="height: 100%; width: auto; position: absolute; left: 61.358%" onclick="ToogleRecord()" />
+                <div id="recordTime"
+                    style="text-align: center; width: 61.358%; position: absolute; background-color: rgba(255, 255, 255, 0.5); color: red; display: none">
+                    00:00:00</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function RequestHide() {
+            // document.getElementById("Request").style.display = "none";
+            UnityGame.SendMessage("FilterManager", "InitiateWebcamTexture");
+        }
+        function RequestShow() {
+            // document.getElementById("Request").style.display = "block";
+        }
+        //***************************************
+        var unityLoadProgress = 0.0;
+        var totalProgress = 0.0;
+        var otherProgress = 0.0;
+        const progressContainer = document.getElementById("TopContainer");
+        const progressText = document.getElementById("ProgressText");
+        const progressbar = document.getElementById("unity-progress-bar-full");
 
-            const hideFullScreenButton = "";
-            const buildUrl = "Build";
-            const loaderUrl = buildUrl + "/Builds.loader.js";
-            const config = {
-                dataUrl: buildUrl + "/Builds.data.unityweb",
-                frameworkUrl: buildUrl + "/Builds.framework.js.unityweb",
-                codeUrl: buildUrl + "/Builds.wasm.unityweb",
-                streamingAssetsUrl: "StreamingAssets",
-                companyName: "DefaultCompany",
-                productName: "TestUnity",
-                productVersion: "1.0",
-            };
+        function UpdateProgress() {
+            totalProgress = unityLoadProgress + otherProgress;
+            progressbar.style.width = totalProgress + "%";
+        }
+        function SetProgressTopElement(progress) {
+            unityLoadProgress = Math.round(progress * 90.0);
+            UpdateProgress();
+        }
+        function AddProgress() {
+            otherProgress += 2.0;
+            UpdateProgress();
+        }
+        function SampleFunctionSet() {
+            AddProgress();
+        }
+        function MediapipeStartTracking() {
+            AddProgress();
+        }
+        function CameraSelected() {
+            AddProgress();
+        }
+        function AssetLoaded() {
+            AddProgress();
+        }
+        //***************************************
 
-            const container = document.querySelector("#unity-container");
-            const canvas = document.querySelector("#unity-canvas");
-            var UnityGame;
-            if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-                container.className = "unity-mobile";
-                config.devicePixelRatio = 2;
-            }
-            //loadingCover.style.display = "";
-            function StartAR() {
-                hiddenHome();
-                showSceneLoading();
-                const script = document.createElement("script");
-                script.src = loaderUrl;
-                script.onload = () => {
-                    config["webglContextAttributes"] = { preserveDrawingBuffer: true }; //***************************************************
-                    createUnityInstance(canvas, config, (progress) => {
-                        SetProgressTopElement(progress);
+        const hideFullScreenButton = "";
+        const buildUrl = "Build";
+        const loaderUrl = buildUrl + "/Builds.loader.js";
+        const config = {
+            dataUrl: buildUrl + "/Builds.data.unityweb",
+            frameworkUrl: buildUrl + "/Builds.framework.js.unityweb",
+            codeUrl: buildUrl + "/Builds.wasm.unityweb",
+            streamingAssetsUrl: "StreamingAssets",
+            companyName: "DefaultCompany",
+            productName: "TestUnity",
+            productVersion: "1.0",
+        };
+
+        const container = document.querySelector("#unity-container");
+        const canvas = document.querySelector("#unity-canvas");
+        var UnityGame;
+        if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+            container.className = "unity-mobile";
+            config.devicePixelRatio = 2;
+        }
+        //loadingCover.style.display = "";
+        function StartAR() {
+            hiddenHome();
+            showSceneLoading();
+            const script = document.createElement("script");
+            script.src = loaderUrl;
+            script.onload = () => {
+                config["webglContextAttributes"] = { preserveDrawingBuffer: true }; //***************************************************
+                createUnityInstance(canvas, config, (progress) => {
+                    SetProgressTopElement(progress);
+                })
+                    .then((unityInstance) => {
+                        UnityGame = unityInstance;
+                        // RequestShow();
+
+                        RequestHide();
                     })
-                        .then((unityInstance) => {
-                            UnityGame = unityInstance;
-                            // RequestShow();
+                    .catch((message) => {
+                        alert(message);
+                    });
+            };
+            document.body.appendChild(script);
+        }
+    </script>
+    <!--************************************************************-->
+    <script type="text/javascript">
+        const FunctionTrigger = {};
+        var unityHeight;
+        var unityWidth;
+    </script>
+    <!-- <script src="src/videoRecorder.js"></script> -->
+    <script src="assets/main.js"></script>
+    <script src="src/script.js" type="module"></script>
 
-                            RequestHide();
-                        })
-                        .catch((message) => {
-                            alert(message);
-                        });
-                };
-                document.body.appendChild(script);
-            }
-        </script>
-        <!--************************************************************-->
-        <script type="text/javascript">
-            const FunctionTrigger = {};
-            var unityHeight;
-            var unityWidth;
-        </script>
-        <!-- <script src="src/videoRecorder.js"></script> -->
-        <script src="assets/main.js"></script>
-        <script src="src/script.js" type="module"></script>
+    <script type="module">
+        import { sampleFunction } from "./src/script.js";
+        import { RequestPrediction } from "./src/script.js";
+        FunctionTrigger.sampleFunction = sampleFunction;
+        FunctionTrigger.RequestPrediction = RequestPrediction;
+    </script>
 
-        <script type="module">
-            import { sampleFunction } from "./src/script.js";
-            import { RequestPrediction } from "./src/script.js";
-            FunctionTrigger.sampleFunction = sampleFunction;
-            FunctionTrigger.RequestPrediction = RequestPrediction;
-        </script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <!--***************************************************-->
 
-        <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-        <!--***************************************************-->
-
-        <script>
-            //_________________________________________________________________________________________scaleUnityCanvas
-            const filterUi = document.querySelector("#filterUi");
-            const recordTime = document.querySelector("#recordTime");
-            function scale() {
-                canvas.style.width = window.innerWidth + "px";
-                canvas.style.height = window.innerHeight + "px";
-                canvas.style.left = "0px";
-                canvas.style.top = "0px";
-                var factorCanvas = window.innerHeight / window.innerWidth;
-                if (factorCanvas < 16 / 9) {
-                    factorCanvas = window.innerHeight * (9 / 16);
-                    /*
-            canvas.style.width = factorCanvas + "px" ;
-            canvas.style.height = window.innerHeight + "px" ;
-            canvas.style.left = (window.innerWidth - factorCanvas)/2+"px";            
-            canvas.style.top = "0px";              
-*/
-                    filterUi.style.width = factorCanvas + "px";
-                    filterUi.style.height = window.innerHeight / 10 + "px";
-                    filterUi.style.left = (window.innerWidth - factorCanvas) / 2 + "px";
-                    filterUi.style.top = (window.innerHeight * 9) / 10 + "px";
-                    recordTime.style.fontSize = window.innerHeight / 13 + "px";
-
-                    // progressContainer.style.width = factorCanvas + "px";
-                    // progressContainer.style.height = window.innerHeight + "px";
-                    // progressContainer.style.left =
-                    //   (window.innerWidth - factorCanvas) / 2 + "px";
-                    // progressContainer.style.top = "0px";
-
-                    // progressText.style.fontSize = factorCanvas / 20 + "px";
-                } else {
-                    factorCanvas = window.innerWidth * (16 / 9);
-                    /*
-            canvas.style.width = window.innerWidth + "px" ;
-            canvas.style.height = factorCanvas + "px" ;
+    <script>
+        //_________________________________________________________________________________________scaleUnityCanvas
+        const filterUi = document.querySelector("#filterUi");
+        const recordTime = document.querySelector("#recordTime");
+        function scale() {
+            canvas.style.width = window.innerWidth + "px";
+            canvas.style.height = window.innerHeight + "px";
             canvas.style.left = "0px";
-            canvas.style.top = (window.innerHeight - factorCanvas)/2+"px";
+            canvas.style.top = "0px";
+            var factorCanvas = window.innerHeight / window.innerWidth;
+            if (factorCanvas < 16 / 9) {
+                factorCanvas = window.innerHeight * (9 / 16);
+                /*
+        canvas.style.width = factorCanvas + "px" ;
+        canvas.style.height = window.innerHeight + "px" ;
+        canvas.style.left = (window.innerWidth - factorCanvas)/2+"px";            
+        canvas.style.top = "0px";              
 */
-                    filterUi.style.width = window.innerWidth + "px";
-                    filterUi.style.height = factorCanvas / 10 + "px";
-                    filterUi.style.left = "0px";
-                    filterUi.style.top = (window.innerHeight - factorCanvas) / 2 + (factorCanvas * 9) / 10 + "px";
-                    recordTime.style.fontSize = factorCanvas / 13 + "px";
+                filterUi.style.width = factorCanvas + "px";
+                filterUi.style.height = window.innerHeight / 10 + "px";
+                filterUi.style.left = (window.innerWidth - factorCanvas) / 2 + "px";
+                filterUi.style.top = (window.innerHeight * 9) / 10 + "px";
+                recordTime.style.fontSize = window.innerHeight / 13 + "px";
 
-                    // progressContainer.style.width = window.innerWidth + "px";
-                    // progressContainer.style.height = factorCanvas + "px";
-                    // progressContainer.style.left = "0px";
-                    // progressContainer.style.top =
-                    //   (window.innerHeight - factorCanvas) / 2 + "px";
+                // progressContainer.style.width = factorCanvas + "px";
+                // progressContainer.style.height = window.innerHeight + "px";
+                // progressContainer.style.left =
+                //   (window.innerWidth - factorCanvas) / 2 + "px";
+                // progressContainer.style.top = "0px";
 
-                    // progressText.style.fontSize = window.innerWidth / 20 + "px";
-                }
+                // progressText.style.fontSize = factorCanvas / 20 + "px";
+            } else {
+                factorCanvas = window.innerWidth * (16 / 9);
+                /*
+        canvas.style.width = window.innerWidth + "px" ;
+        canvas.style.height = factorCanvas + "px" ;
+        canvas.style.left = "0px";
+        canvas.style.top = (window.innerHeight - factorCanvas)/2+"px";
+*/
+                filterUi.style.width = window.innerWidth + "px";
+                filterUi.style.height = factorCanvas / 10 + "px";
+                filterUi.style.left = "0px";
+                filterUi.style.top = (window.innerHeight - factorCanvas) / 2 + (factorCanvas * 9) / 10 + "px";
+                recordTime.style.fontSize = factorCanvas / 13 + "px";
+
+                // progressContainer.style.width = window.innerWidth + "px";
+                // progressContainer.style.height = factorCanvas + "px";
+                // progressContainer.style.left = "0px";
+                // progressContainer.style.top =
+                //   (window.innerHeight - factorCanvas) / 2 + "px";
+
+                // progressText.style.fontSize = window.innerWidth / 20 + "px";
             }
+        }
+        scale();
+        window.addEventListener("resize", resizeWindow);
+        function resizeWindow() {
             scale();
-            window.addEventListener("resize", resizeWindow);
-            function resizeWindow() {
-                scale();
-            }
-            //_________________________________________________________________________________________scaleUnityCanvas
-            //videoRecord
-            const screenShotBtn = document.querySelector("#screenShotBtn");
-            const recordBtn = document.querySelector("#recordBtn");
+        }
+        //_________________________________________________________________________________________scaleUnityCanvas
+        //videoRecord
+        const screenShotBtn = document.querySelector("#screenShotBtn");
+        const recordBtn = document.querySelector("#recordBtn");
 
-            const DELAY = 1000;
-            let _isRecording = false;
-            let _lastClick = 0;
+        const DELAY = 1000;
+        let _isRecording = false;
+        let _lastClick = 0;
 
-            function TakeScreenShot() {
-                filterUi.display = "none";
-                if (UnityGame != undefined) {
-                    UnityGame.SendMessage("FilterManager", "TriggerScreenShot");
-                } //*************************************
-            }
-            function ShowFilterUiDisplay() {
-                filterUi.display = "block";
-            }
-            function UpdateRecodeTime(timeString) {
-                recordTime.innerHTML = timeString;
-            }
-            function ToogleRecord() {
-                if (_lastClick < Date.now() - DELAY) {
-                    _lastClick = Date.now();
-                    if (_isRecording == false) {
-                        _isRecording = true;
-                        recordBtn.src = "./StreamingAssets/Textures/recordActive.png";
-                        recordTime.innerHTML = "00:00:00";
-                        screenShotBtn.style.display = "none";
-                        recordTime.style.display = "block";
-                        UnityGame.SendMessage("FilterManager", "TriggerVideoRecord");
-                    } else {
-                        ResetRecordUi();
-                        UnityGame.SendMessage("FilterManager", "StopVideoRecord");
-                    }
+        function TakeScreenShot() {
+            filterUi.display = "none";
+            if (UnityGame != undefined) {
+                UnityGame.SendMessage("FilterManager", "TriggerScreenShot");
+            } //*************************************
+        }
+        function ShowFilterUiDisplay() {
+            filterUi.display = "block";
+        }
+        function UpdateRecodeTime(timeString) {
+            recordTime.innerHTML = timeString;
+        }
+        function ToogleRecord() {
+            if (_lastClick < Date.now() - DELAY) {
+                _lastClick = Date.now();
+                if (_isRecording == false) {
+                    _isRecording = true;
+                    recordBtn.src = "./StreamingAssets/Textures/recordActive.png";
+                    recordTime.innerHTML = "00:00:00";
+                    screenShotBtn.style.display = "none";
+                    recordTime.style.display = "block";
+                    UnityGame.SendMessage("FilterManager", "TriggerVideoRecord");
                 } else {
-                    alert("Wait for a second please");
+                    ResetRecordUi();
+                    UnityGame.SendMessage("FilterManager", "StopVideoRecord");
                 }
+            } else {
+                alert("Wait for a second please");
             }
-            function ResetRecordUi() {
-                _isRecording = false;
-                recordBtn.src = "./StreamingAssets/Textures/recordStop.png";
-                screenShotBtn.style.display = "block";
-                recordTime.style.display = "none";
+        }
+        function ResetRecordUi() {
+            _isRecording = false;
+            recordBtn.src = "./StreamingAssets/Textures/recordStop.png";
+            screenShotBtn.style.display = "block";
+            recordTime.style.display = "none";
+        }
+        //-----------------------------------------------------------------------------------------
+        function test() {
+            if (FunctionTrigger.sampleFunction != undefined) {
+                SampleFunctionSet();
+                FunctionTrigger.sampleFunction();
+            } else {
+                console.log("FunctionTrigger.sampleFunction is not set");
+                setTimeout(test, 2500);
             }
-            //-----------------------------------------------------------------------------------------
-            function test() {
-                if (FunctionTrigger.sampleFunction != undefined) {
-                    SampleFunctionSet();
-                    FunctionTrigger.sampleFunction();
-                } else {
-                    console.log("FunctionTrigger.sampleFunction is not set");
-                    setTimeout(test, 2500);
-                }
-            }
-            test();
+        }
+        test();
 
-            function RequestPrediction() {
-                if (FunctionTrigger.RequestPrediction != undefined) {
-                    FunctionTrigger.RequestPrediction();
-                }
+        function RequestPrediction() {
+            if (FunctionTrigger.RequestPrediction != undefined) {
+                FunctionTrigger.RequestPrediction();
             }
-            var videoElement;
-            function SetVideo(video) {
-                console.log("Video tag is created: " + videoElement);
-                videoElement = video;
-                AddProgress();
+        }
+        var videoElement;
+        function SetVideo(video) {
+            console.log("Video tag is created: " + videoElement);
+            videoElement = video;
+            AddProgress();
+        }
+        function OnGetMediaFail(errorDetail) {
+            console.log(errorDetail);
+            if (typeof window.inform === "function") {
+                inform();
+            } else {
+                document.getElementById("progressText").innerHTML = "Filter need Permission to use your camera. \nPlease, reset your permission.";
             }
-            function OnGetMediaFail(errorDetail) {
-                console.log(errorDetail);
-                if (typeof window.inform === "function") {
-                    inform();
-                } else {
-                    document.getElementById("progressText").innerHTML = "Filter need Permission to use your camera. \nPlease, reset your permission.";
-                }
-            }
-            //****************************************************************
-            let isProduction = false;
-            function GetIsProduction() {
-                return isProduction;
-            }
-            //****************************************************************
+        }
+        //****************************************************************
+        let isProduction = false;
+        function GetIsProduction() {
+            return isProduction;
+        }
+        //****************************************************************
 
-            //_______________________________________________________________________________________
-            async function NativeSendBase64(data) {
-                var dataBase64 = "data:image/png;base64," + data;
-                setClearMediaWrapper();
-                resultType = "image";
-                resultUrl = dataBase64;
-                showShareElement();
-                showBlockBtnsElement();
-                let blob = await base64toFile(dataBase64, "img.png");
-                let fullUrl = await handleUploadPresignedS3(blob);
-                setResultMedia(getUrlRaw(fullUrl), "image");
-            }
-            // function NativeSendBlobUrl(blobUrl) {
-            //   resultUrl = blobUrl;
-            //   showShareElement();
-            //   setResultMedia(resultUrl, "video");
-            //   resultType = "video";
-            //   showBlockBtnsElement();
-            //   // handleUploadPresignedS3(blobVideo);
-            // }
+        //_______________________________________________________________________________________
+        async function NativeSendBase64(data) {
+            var dataBase64 = "data:image/png;base64," + data;
+            setClearMediaWrapper();
+            resultType = "image";
+            resultUrl = dataBase64;
+            showShareElement();
+            showBlockBtnsElement();
+            let blob = await base64toFile(dataBase64, "img.png");
+            let fullUrl = await handleUploadPresignedS3(blob);
+            setResultMedia(getUrlRaw(fullUrl), "image");
+        }
+        // function NativeSendBlobUrl(blobUrl) {
+        //   resultUrl = blobUrl;
+        //   showShareElement();
+        //   setResultMedia(resultUrl, "video");
+        //   resultType = "video";
+        //   showBlockBtnsElement();
+        //   // handleUploadPresignedS3(blobVideo);
+        // }
 
-            async function NativeSendBlobUrlAndBlob(blobUrl, blob) {
-                setClearMediaWrapper();
-                resultBlob = blob;
-                resultType = "video";
-                resultUrl = blobUrl;
-                showShareElement();
-                showBlockBtnsElement();
-                let fullUrl = await handleUploadPresignedS3(resultBlob);
-                setResultMedia(getUrlRaw(fullUrl), "video");
-            }
-            //________________________________________________________________________________________
+        async function NativeSendBlobUrlAndBlob(blobUrl, blob) {
+            setClearMediaWrapper();
+            resultBlob = blob;
+            resultType = "video";
+            resultUrl = blobUrl;
+            showShareElement();
+            showBlockBtnsElement();
+            let fullUrl = await handleUploadPresignedS3(resultBlob);
+            setResultMedia(getUrlRaw(fullUrl), "video");
+        }
+        //________________________________________________________________________________________
 
-            function cameraDone() {
-                //alert("cameradone");
-                hiddenSceneLoading();
-            }
-        </script>
-        <!-- <script src="./src/videoRecorder.js"></script>
+        function cameraDone() {
+            //alert("cameradone");
+            hiddenSceneLoading();
+        }
+    </script>
+    <!-- <script src="./src/videoRecorder.js"></script>
     <script src="./src/main.js"></script> -->
-        <!-- <script
+    <!-- <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"
     ></script>
@@ -388,5 +402,6 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/jsencrypt/3.3.1/jsencrypt.min.js"
     ></script> -->
-    </body>
+</body>
+
 </html>
