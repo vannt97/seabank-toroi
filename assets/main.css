@@ -5,6 +5,7 @@
   font-family: "GMV DIN Pro";
   font-weight: 400;
 }
+
 html {
   font-size: 10px;
 }
@@ -22,6 +23,7 @@ html {
   width: 100%;
   height: 100%;
 }
+
 .home-wrapper {
   position: fixed;
   top: 0;
@@ -30,6 +32,7 @@ html {
   height: 100%;
   text-align: center;
 }
+
 .seabank-logo {
   width: 15.5rem;
   margin: 0 auto;
@@ -44,6 +47,7 @@ html {
   width: 21.9rem;
   margin-bottom: 3rem;
 }
+
 .experience-btn {
   width: 100%;
   max-width: 34.3rem;
@@ -60,6 +64,7 @@ html {
   z-index: 99;
   display: none;
 }
+
 #unity-loading-bar {
   display: block;
   position: relative;
@@ -69,6 +74,7 @@ html {
   width: 30rem;
   margin: auto;
 }
+
 #unity-progress-bar-empty {
   width: 100%;
   background: none;
@@ -76,13 +82,16 @@ html {
   border-radius: 5px;
   overflow: hidden;
 }
+
 #unity-progress-bar-full {
   background: linear-gradient(90deg, #336fb4 0%, #1fb6de 100%);
   margin: 0;
 }
+
 #startARDiv {
   z-index: -9999;
 }
+
 .popup-wrapper {
   position: absolute;
   top: 0;
@@ -93,6 +102,7 @@ html {
   justify-content: center;
   align-items: center;
 }
+
 .outer {
   width: 100%;
   height: 100%;
@@ -102,6 +112,7 @@ html {
   top: 0;
   left: 0;
 }
+
 .inner {
   position: relative;
   z-index: 1;
@@ -116,6 +127,7 @@ html {
   padding: 0 2rem;
   justify-content: center;
 }
+
 .ctaDiv {
   display: none;
 }
@@ -126,10 +138,12 @@ html {
   font-size: 1.4rem;
   color: white;
 }
+
 .share-title {
   margin-top: 5rem;
   margin-bottom: 2rem;
 }
+
 .bg-wrapper {
   margin: auto;
   margin-bottom: 3rem;
@@ -146,6 +160,7 @@ html {
   margin: auto;
   margin-top: 1.5rem;
 }
+
 .btns-wrapper img {
   width: 100%;
 }
@@ -159,6 +174,7 @@ html {
   border: 2.83px solid white;
   box-shadow: 0px 0px 12.09px 0px rgba(186, 238, 255, 0.5);
 }
+
 #result-image,
 #result-video {
   position: absolute;
@@ -179,20 +195,20 @@ html {
     width: 37.7rem;
   }
 }
+
 @media only screen and (min-width: 990px) {
   body::after {
-    position: absolute;
-    content: "Không hỗ trợ cho trình duyệt máy tính";
+    position: fixed;
+    content: "";
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    color: white;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    background-color: black;
+    background-image: url('./images/toroi.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
   }
 }
