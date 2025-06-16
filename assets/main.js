@@ -318,3 +318,5 @@ function isFbBrowser() {
 }
 
 redirectToBrowserFromZalo();
+redirectToBrowserFromFB();
+redirectToBrowserFromTiktok();
