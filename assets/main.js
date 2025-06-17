@@ -285,7 +285,7 @@ function checkBrowser() {
 
 function handleHiddenELementExperience() {
   const element = document.getElementById("experience-btn-wrapper");
-  element.innerHTML = `<div style="color:white">
+  element.innerHTML = `<div style="color:white; font-size: 1.3rem">
   Website AR không hỗ trợ cho inapp Zalo/ Facebook <br/>
   Vui lòng mở trình duyệt web để trải nghiệm AR này.
   </div>`;
