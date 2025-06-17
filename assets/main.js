@@ -331,4 +331,3 @@ function isFbBrowser() {
 redirectToBrowserFromZalo();
 redirectToBrowserFromFB();
 redirectToBrowserFromTiktok();
-handleHiddenELementExperience();
