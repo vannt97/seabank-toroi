@@ -216,3 +216,11 @@ html {
     background-size: cover;
   }
 }
+
+#unity-loading-text{
+  position: absolute;
+  top: -1.8rem;
+  left: 0;
+  width: 100%;
+  color: white;
+}
