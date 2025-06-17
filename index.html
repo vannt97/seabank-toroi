@@ -15,9 +15,9 @@
     />
     <meta property="og:image" content="/assets/images/toroi.png" />
     <link rel="shortcut icon" href="TemplateData/favicon.ico" />
-    <link rel="stylesheet" href="TemplateData/style.css?v=5" />
-    <link rel="stylesheet" href="assets/font.css?v=5" />
-    <link rel="stylesheet" href="assets/main.css?v=5" />
+    <link rel="stylesheet" href="TemplateData/style.css?v=6" />
+    <link rel="stylesheet" href="assets/font.css?v=6" />
+    <link rel="stylesheet" href="assets/main.css?v=6" />
 
     <script>
       window.alert = function () {
@@ -33,43 +33,47 @@
 
   <body class="dark" style="overflow: hidden">
     <div id="home">
-      <img class="bg-img" src="assets/images/bg.png?v=5" alt="" />
+      <img class="bg-img" src="assets/images/bg.png?v=6" alt="" />
       <div class="home-wrapper">
         <img
           class="seabank-logo"
-          src="assets/images/sea-bank-logo.png?v=5"
+          src="assets/images/sea-bank-logo.png?v=6"
           alt=""
         />
-        <img class="main-img" src="assets/images/home-image-1.png?v=5" alt="" />
+        <img class="main-img" src="assets/images/home-image-1.png?v=6" alt="" />
         <img
           class="description-img"
-          src="assets/images/home-image-2.png?v=5"
+          src="assets/images/home-image-2.png?v=6"
           alt=""
         />
-        <img
-          onclick="StartAR()"
-          class="experience-btn"
-          src="assets/images/experience-btn.png?v=5"
-          alt=""
-        />
+        <div id="experience-btn-wrapper">
+          <img
+            onclick="StartAR()"
+            class="experience-btn"
+            src="assets/images/experience-btn.png?v=6"
+            alt=""
+          />
+        </div>
       </div>
     </div>
     <div id="loading">
-      <img class="bg-img" src="assets/images/bg.png?v=5" alt="" />
+      <img class="bg-img" src="assets/images/bg.png?v=6" alt="" />
       <div class="home-wrapper">
         <img
           class="seabank-logo"
-          src="assets/images/sea-bank-logo.png?v=5"
+          src="assets/images/sea-bank-logo.png?v=6"
           alt=""
         />
-        <img class="main-img" src="assets/images/home-image-1.png?v=5" alt="" />
+        <img class="main-img" src="assets/images/home-image-1.png?v=6" alt="" />
         <img
           class="description-img"
-          src="assets/images/home-image-2.png?v=5"
+          src="assets/images/home-image-2.png?v=6"
           alt=""
         />
         <div id="unity-loading-bar">
-          <p id="unity-loading-text">Vui lòng ở lại trang cho tới khi được tải xong</p>
+          <p id="unity-loading-text">
+            Vui lòng ở lại trang cho tới khi được tải xong
+          </p>
           <div id="unity-progress-bar-empty">
             <div id="unity-progress-bar-full"></div>
           </div>
@@ -77,17 +81,17 @@
       </div>
     </div>
     <div id="error">
-      <img class="bg-img" src="assets/images/bg.png?v=5" alt="" />
+      <img class="bg-img" src="assets/images/bg.png?v=6" alt="" />
       <div class="home-wrapper">
         <img
           class="seabank-logo"
-          src="assets/images/sea-bank-logo.png?v=5"
+          src="assets/images/sea-bank-logo.png?v=6"
           alt=""
         />
-        <img class="main-img" src="assets/images/home-image-1.png?v=5" alt="" />
+        <img class="main-img" src="assets/images/home-image-1.png?v=6" alt="" />
         <img
           class="description-img"
-          src="assets/images/home-image-2.png?v=5"
+          src="assets/images/home-image-2.png?v=6"
           alt=""
         />
       </div>
@@ -102,7 +106,7 @@
       </div>
     </div>
     <div id="share">
-      <img class="bg-img" src="assets/images/bg.png?v=5" alt="" />
+      <img class="bg-img" src="assets/images/bg.png?v=6" alt="" />
       <div class="home-wrapper">
         <div class="share-title">
           <p>Chia sẻ ngay để có cơ hội</p>
@@ -182,7 +186,7 @@
           "
         >
           <img
-            src="src/requestBtn.png?v=5"
+            src="src/requestBtn.png?v=6"
             onclick="RequestHide()"
             style="position: relative; height: 100%; width: auto"
           />
@@ -198,13 +202,13 @@
         <div id="filterUi" style="position: absolute">
           <img
             id="screenShotBtn"
-            src="./StreamingAssets/Textures/screenShot.png?v=5"
+            src="./StreamingAssets/Textures/screenShot.png?v=6"
             style="height: 100%; width: auto; position: absolute; left: 21.481%"
             onclick="TakeScreenShot()"
           />
           <img
             id="recordBtn"
-            src="./StreamingAssets/Textures/recordStop.png?v=5"
+            src="./StreamingAssets/Textures/recordStop.png?v=6"
             style="height: 100%; width: auto; position: absolute; left: 61.358%"
             onclick="ToogleRecord()"
           />
@@ -268,12 +272,12 @@
 
       const hideFullScreenButton = "";
       const buildUrl = "Build";
-      const loaderUrl = buildUrl + "/Builds.loader.js?v=5";
+      const loaderUrl = buildUrl + "/Builds.loader.js?v=6";
       const config = {
-        dataUrl: buildUrl + "/Builds.data.unityweb?v=5",
-        frameworkUrl: buildUrl + "/Builds.framework.js.unityweb?v=5",
-        codeUrl: buildUrl + "/Builds.wasm.unityweb?v=5",
-        streamingAssetsUrl: "StreamingAssets?v=5",
+        dataUrl: buildUrl + "/Builds.data.unityweb?v=6",
+        frameworkUrl: buildUrl + "/Builds.framework.js.unityweb?v=6",
+        codeUrl: buildUrl + "/Builds.wasm.unityweb?v=6",
+        streamingAssetsUrl: "StreamingAssets?v=6",
         companyName: "DefaultCompany",
         productName: "TestUnity",
         productVersion: "1.0",
@@ -317,12 +321,12 @@
       var unityWidth;
     </script>
     <!-- <script src="src/videoRecorder.js"></script> -->
-    <script src="assets/main.js?v=5"></script>
-    <script src="src/script.js?v=5" type="module"></script>
+    <script src="assets/main.js?v=6"></script>
+    <script src="src/script.js?v=6" type="module"></script>
 
     <script type="module">
-      import { sampleFunction } from "./src/script.js?v=5";
-      import { RequestPrediction } from "./src/script.js?v=5";
+      import { sampleFunction } from "./src/script.js?v=6";
+      import { RequestPrediction } from "./src/script.js?v=6";
       FunctionTrigger.sampleFunction = sampleFunction;
       FunctionTrigger.RequestPrediction = RequestPrediction;
     </script>
@@ -418,7 +422,7 @@
           _lastClick = Date.now();
           if (_isRecording == false) {
             _isRecording = true;
-            recordBtn.src = "./StreamingAssets/Textures/recordActive.png?v=5";
+            recordBtn.src = "./StreamingAssets/Textures/recordActive.png?v=6";
             recordTime.innerHTML = "00:00:00";
             screenShotBtn.style.display = "none";
             recordTime.style.display = "block";
@@ -433,7 +437,7 @@
       }
       function ResetRecordUi() {
         _isRecording = false;
-        recordBtn.src = "./StreamingAssets/Textures/recordStop.png?v=5";
+        recordBtn.src = "./StreamingAssets/Textures/recordStop.png?v=6";
         screenShotBtn.style.display = "block";
         recordTime.style.display = "none";
       }

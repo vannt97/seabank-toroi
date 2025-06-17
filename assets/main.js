@@ -283,6 +283,14 @@ function checkBrowser() {
   return sBrowser;
 }
 
+function handleHiddenELementExperience() {
+  const element = document.getElementById("experience-btn-wrapper");
+  element.innerHTML = `<div style="color:white">
+  Website AR không hỗ trợ cho inapp Zalo/ Facebook <br/>
+  Vui lòng mở trình duyệt web để trải nghiệm AR này.
+  </div>`;
+}
+
 function handleRedirectToBrowser() {
   let current_url = new window.URL(window.location.href);
   let params = current_url.search;
@@ -293,16 +301,19 @@ function handleRedirectToBrowser() {
 function redirectToBrowserFromZalo() {
   if (!isZaloBrowser()) return;
   handleRedirectToBrowser();
+  handleHiddenELementExperience();
 }
 
 function redirectToBrowserFromFB() {
   if (!isFbBrowser()) return;
   handleRedirectToBrowser();
+  handleHiddenELementExperience();
 }
 
 function redirectToBrowserFromTiktok() {
   if (!isTiktokBrowser()) return;
   handleRedirectToBrowser();
+  handleHiddenELementExperience();
 }
 
 function isTiktokBrowser() {
@@ -320,3 +331,4 @@ function isFbBrowser() {
 redirectToBrowserFromZalo();
 redirectToBrowserFromFB();
 redirectToBrowserFromTiktok();
+handleHiddenELementExperience();
