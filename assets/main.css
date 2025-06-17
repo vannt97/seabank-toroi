@@ -83,6 +83,8 @@ html {
   border: 1px solid white;
   border-radius: 5px;
   overflow: hidden;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 #unity-progress-bar-full {
